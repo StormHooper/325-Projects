@@ -15,35 +15,12 @@ using namespace std;
 class Card
 {
     private:
-        char rank {};
-        char suit {};
-        int value {};
+        char rank;
+        char suit;
 
     public:
-        Card(char suit='X', char rank='X') : suit {suit}, rank {rank}
-        {
-            switch(rank)
-            {
-            case('A'):
-                value = 1;
-                break;
-            case('T'):
-                value = 10;
-                break;
-            case('J'):
-                value = 11;
-                break;
-            case('Q'):
-                value = 12;
-                break;
-            case('K'):
-                value = 13;
-                break;
-            default:
-                value = static_cast<int>(rank) - 48;
-                break;
-            }
-        }
+        Card(char suit='X', char rank='X'): suit(suit), rank(rank)
+        {}
 
         void display()
         {
@@ -55,18 +32,21 @@ class Card
 
         int compare(Card other)
         {
-            if (value == other.value)
+            char order[13] = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+            int cardIndex, otherIndex = 0;
+
+            for (int i = 0; i < 13; i++)
             {
-                return 0;
+                if (rank == order[i])
+                {
+                    cardIndex = i;
+                }
+                if (other.rank == order[i])
+                {
+                    otherIndex = i;
+                }
             }
-            else if (value > other.value)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
+            return (cardIndex > otherIndex) ? 1 : (cardIndex < otherIndex) ? -1 : 0;
         }
 };
 
@@ -90,7 +70,8 @@ class Deck
         {
             if (isEmpty())
                 throw("Error - Deck is empty\n");
-            return mainDeck[index];
+            ++index;
+            return mainDeck[index-1];
         }
 
         void display()
@@ -129,15 +110,18 @@ int main() {
     Deck deck;
     string player1;
     string player2;
+    int rounds;
     int pointsP1 {0};
     int pointsP2 {0};
     int ties {0};
-
-    // Get player names.
+    
+    // Get player names and number of rounds.
     cout << "Enter the name of the first player: ";
     cin >> player1;
     cout << "Enter the name of the second player: ";
     cin >> player2;
+    cout << "How many games will they play? ";
+    cin >> rounds;
     cout << "\n";
 
     // Constructs and displays deck pre- and post-shuffle.
@@ -150,11 +134,22 @@ int main() {
     cout << '\n';
 
     // It's time to d-d-d-d-d-d-d-d-d-d-duel!
-    for (int round = 1; round <= 26; round++)
+    for (int round = 1; round <= rounds; round++)
     {
-        Card cardP1 {deck.deal()};
-        Card cardP2 {deck.deal()};
+        Card cardP1 {};
+        Card cardP2 {};
 
+        try
+        {
+            cardP1 = deck.deal();
+            cardP2 = deck.deal();
+        }
+        catch(const char* error)
+        {
+            cout << error;
+            break;
+        }
+        
         cout << "Game " << round << '\n' << "--------\n\t" << player1 << "=>";
         cardP1.display();
         cout << "\n\t" << player2 << "=>";
