@@ -32,6 +32,10 @@ int main(int argc, char *argv[])
         cout << "Please enter 2 parameters: \n\tParameter 1: input file. \n\tParameter 2: output file.\n";
         return -1;
     }
+    else
+    {
+        cout << "Starting Array bubble sort with 1000000 items\n";
+    }
     ifstream numData {argv[1]};
     int numbers[1000000];
     size_t counter {0};
@@ -52,5 +56,6 @@ int main(int argc, char *argv[])
     for (size_t i {0}; i < counter; ++i)
         outputData << numbers[i] << '\n';
     outputData.close();
+    cout << "Ending bubble sort\n";
     return 0;
 }
