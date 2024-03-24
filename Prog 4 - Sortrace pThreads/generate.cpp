@@ -1,7 +1,7 @@
 // Author: Tyler Pham
 // CECS 325-02
-// Prog 3 - Sorting Contest
-// Due 03/12/2024
+// Prog 4 - Sorting Contest w/ pThreads
+// Due 03/28/2024
 //
 // I certify that this program is my own original work. I did not copy any part of this program from
 // any other source. I further certify that I typed each and every line of code in this program.
