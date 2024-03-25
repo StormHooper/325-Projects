@@ -86,7 +86,6 @@ int main(int argc, char *argv[])
     }
     numData.close();
     
-    
     pthread_t t0, t1, t2, t3, t4, t5, t6, t7;
     pthread_t t[8] = {t0, t1, t2, t3, t4, t5, t6, t7};
     sortStuff ss[8];
