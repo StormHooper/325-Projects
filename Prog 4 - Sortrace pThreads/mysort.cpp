@@ -38,27 +38,25 @@ void *bridge(void *ptr)
     return NULL;
 }
 
-sortStuff merge(sortStuff &sec1, sortStuff &sec2)
+void merge(int ss[], int start1, int end1, int start2, int end2)
 {
-    int mergeSize = sec1.size + sec2.size;
-    int *temp = new int[mergeSize];
-    size_t i {0}, j {0}, k {0};
-    while (i != sec1.size && j != sec2.size)
+    int temp[1000000];
+    int i {start1}, j {start2}, k {0};
+    while (i <= end1 && j <= end2)
     {
-        if (sec1.start[i] < sec2.start[j])
-            temp[k++] = sec2.start[j++];
+        if (ss[i] < ss[j])
+            temp[k++] = ss[i++];
         else
-            temp[k++] = sec1.start[i++];
+            temp[k++] = ss[j++];
     }
 
-    while (i < sec1.size)
-        temp[k++] = sec1.start[i++];
-    while (j < sec2.size)
-        temp[k++] = sec2.start[j++];
-    
-    sec1.start = temp;
-    sec1.size = mergeSize;
-    return sec1;
+    while (i <= end1)
+        temp[k++] = ss[i++];
+    while (j <= end2)
+        temp[k++] = ss[j++];
+
+    for (i = 0; i < k; ++i)
+        ss[start1 + i] = temp[i];
 }
 
 int main(int argc, char *argv[])
@@ -74,7 +72,7 @@ int main(int argc, char *argv[])
     }
     ifstream numData {argv[1]};
     int *numbers = new int[1000000]; // dynamic memory
-    size_t counter {0};
+    int counter {0};
     string num {};
     while (getline(numData, num, '\n'))
     {
@@ -105,24 +103,19 @@ int main(int argc, char *argv[])
     for (size_t i {0}; i < 8; i++)
         pthread_join(t[i], NULL);
 
-    // Merge once, 8 smaller sections into 4 larger sections.
-    sortStuff mergedSect0 = merge(ss[0], ss[1]);
-    sortStuff mergedSect1 = merge(ss[2], ss[3]);
-    sortStuff mergedSect2 = merge(ss[4], ss[5]);
-    sortStuff mergedSect3 = merge(ss[6], ss[7]);
-    // Merge again, 4 sections into 2 sections.
-    sortStuff mergedSect4 = merge(mergedSect0, mergedSect1);
-    sortStuff mergedSect5 = merge(mergedSect2, mergedSect3);
-    // Merge one last time, this will be the final array.
-    sortStuff finalProduct = merge(mergedSect4, mergedSect5);
-    ss[0] = finalProduct;
+    for (int size = counter / 8; size < counter; size *= 2)
+    {
+        for (int start = 0; start < counter - size; start += 2 * size)
+        {
+            int mid = start + size - 1;
+            int end = min(start + 2 * size - 1, counter - 1);
+            merge(numbers, start, mid, mid + 1, end);
+        }
+    }
 
     ofstream outputData {argv[2]};
     for (size_t i {0}; i < counter; ++i)
-    {
-        numbers[i] = ss[0].start[i];
         outputData << numbers[i] << '\n';
-    }
     outputData.close();
     delete[] numbers;
     cout << "Ending bubble sort\n";
