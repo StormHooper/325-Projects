@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        cout << "argv[0]:" << argv[0] << "\nargv[1]:" << argv[1] << "\nargv[2]:" << argv[2] << "\nargv[3]:" << argv[3] << "\n";
+	cout << "argv[0]:" << argv[0] << "\nargv[1]:" << argv[1] << "\nargv[2]:" << argv[2] << "\nargv[3]:" << argv[3] << "\n";
     }
     ofstream numData {"numbers.dat"};
     srand(time(0));
