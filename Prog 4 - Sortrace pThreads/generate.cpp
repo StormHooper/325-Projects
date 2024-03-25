@@ -20,6 +20,10 @@ int main(int argc, char* argv[])
         "Example: $ generate 10000000 100000 999999\n";
         return -1;
     }
+    else
+    {
+        cout << "argv[0]:" << argv[0] << "\nargv[1]:" << argv[1] << "\nargv[2]:" << argv[2] << "\nargv[3]:" << argv[3] << "\n";
+    }
     ofstream numData {"numbers.dat"};
     srand(time(0));
     for (size_t i {0}; i < atoi(argv[1]); ++i)
