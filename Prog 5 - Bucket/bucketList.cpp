@@ -23,7 +23,7 @@ class Bucket{
         void generate(int size, int min, int max)
         {
             for (size_t i {0}; i < size; ++i)
-                v.push_back(rand() % abs(min) - max - 1 + min);
+                v.push_back(rand() % abs((min) - max - 1) + min);
         }
 
         void sort() // Use the bubble sort from Prog3 and Prog4
