@@ -30,7 +30,7 @@ class Bucket{
         {
             int temp {};
             for (size_t i {0}; i < size(); ++i)
-            {
+                {
                 for (size_t j {i+1}; j < size(); ++j)
                     if (v[i] > v[j])
                     {
@@ -39,7 +39,7 @@ class Bucket{
                         v[j] = temp;
                         ++globalSwapCount;
                     }
-            }
+                }
         }
 
         int size()
@@ -52,7 +52,7 @@ class Bucket{
             return v[i];
         }
 
-        int merge(Bucket b) // merge b into this
+        void merge(Bucket b) // merge b into this
         {
             int temp[size() + b.size()];
             size_t i {0}, index1 {0}, index2 {0};
@@ -62,8 +62,8 @@ class Bucket{
 
             while (index1 < size())
                 temp[i++] = v[index1++];
-            while (index2 < size())
-                temp[i++] = v[index2++];
+            while (index2 < b.size())
+                temp[i++] = b.v[index2++];
 
             for (size_t i {0}; i < sizeof(temp)/sizeof(temp[i]); ++i)
             {
@@ -94,14 +94,14 @@ int main(int argc, char *argv[])
     for (int i {0}; i < bucketCount; i++)
     {
         bptr = new Bucket; // allocates new Bucket
-        bptr -> generate(bucketSize, bucketMin, bucketMax);
+        bptr->generate(bucketSize, bucketMin, bucketMax);
         // Bucket::generage(int, int, int, int)
         list.push_back(*bptr); // pushing Bucket onto list
     }
 
-    for (auto it {list.begin()}; it != list.end(); it++)
+    for (auto it = list.begin(); it != list.end(); it++)
     {
-        it -> sort(); // Bucket::sort
+        it->sort(); // Bucket::sort
     }
     Bucket endGame; // create empty Bucket to merge ALL buckets
 
