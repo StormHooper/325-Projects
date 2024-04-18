@@ -30,7 +30,7 @@ class Bucket{
         {
             int temp {};
             for (size_t i {0}; i < size(); ++i)
-                {
+            {
                 for (size_t j {i+1}; j < size(); ++j)
                     if (v[i] > v[j])
                     {
@@ -39,7 +39,7 @@ class Bucket{
                         v[j] = temp;
                         ++globalSwapCount;
                     }
-                }
+            }
         }
 
         int size()
@@ -52,7 +52,7 @@ class Bucket{
             return v[i];
         }
 
-        void merge(Bucket b) // merge b into this
+        int merge(Bucket b) // merge b into this
         {
             int temp[size() + b.size()];
             size_t i {0}, index1 {0}, index2 {0};
