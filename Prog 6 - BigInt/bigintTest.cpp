@@ -222,9 +222,9 @@ void testUnit()
     cout << "s2(str)    :"<<setw(space)<<s2<<endl;
     cout << "n3(n2)     :"<<setw(space)<<n3<<endl; 
     cout << "fibo(12345):"<<setw(space)<<fibo<<endl;
-    cout << "fact(50) :"<<setw(space)<<fact<<endl;
-    cout << "imax :"<<setw(space)<<imax<<endl;
-    cout << "big :"<<setw(space)<<big<<endl;
+    cout << "fact(50)   :"<<setw(space)<<fact<<endl;
+    cout << "imax       :"<<setw(space)<<imax<<endl;
+    cout << "big        :"<<setw(space)<<big<<endl;
     cout << "big.print(): "; big.print(); cout << endl;
 
     cout << n2 << "/"<< n1<< " = "<< n2/n1 <<" rem "<<n2%n1<<endl;
